@@ -19,7 +19,7 @@ try:
                     "volume": 1
                 }
             }
-            with open("example.json", "w") as write_file:
+            with open("soundData.json", "w") as write_file:
                 json.dump(data, write_file)
             time.sleep(0.5)
         if (GPIO.input(sound_pin) == GPIO.HIGH):
@@ -28,7 +28,7 @@ try:
                     "volume": 1
                 }
             }
-            with open("example.json", "w") as write_file:
+            with open("soundData.json", "w") as write_file:
                 json.dump(data, write_file)
             time.sleep(0.5)
         else:
@@ -38,7 +38,7 @@ try:
                 }
             }
         time.sleep(0.5)
-        with open("example.json", "w") as write_file:
+        with open("soundData.json", "w") as write_file:
             json.dump(data, write_file)
 except KeyboardInterrupt:
     GPIO.cleanup()
