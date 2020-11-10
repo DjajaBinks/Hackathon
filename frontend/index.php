@@ -1,7 +1,9 @@
-
-<!DOCTYPE html>
+<?php>
+header("Access-Control-Allow-Origin: *");
+?>
 <html>
 <head>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <link rel="stylesheet" href="css/index.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>

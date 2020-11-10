@@ -1,4 +1,7 @@
 $( document ).ready(function() {
+    $.getJSON("soundData.json", function(data){
+        console.log(data);
+    });
       var dps = []; // dataPoints
       var chart = new CanvasJS.Chart("chartContainer",
       {
