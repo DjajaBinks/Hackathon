@@ -30,6 +30,11 @@ div.header {
   padding: 2rem;
 }
 
+#chartContainer{
+    height: 360px;
+    width: 50%;
+}
+
 footer {
   position: fixed;
   padding-top: 10em;
