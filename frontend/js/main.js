@@ -1,44 +1,35 @@
 $( document ).ready(function() {
-    $.getJSON("soundData.json", function(data){
-        console.log(data);
+
+    var dataPoints = [];
+    var chart;
+    $.getJSON("http://localhost/Hackathon/backend/soundData.json", function(data) {
+        $.each(data, function(key, value){
+            dataPoints.push({x: data.x, y: data.y});
+            console.log(data.x);
+            console.log(data.y)
+        });
+        chart = new CanvasJS.Chart("chartContainer",{
+            title:{
+                text:"Live Volume Chart"
+            },
+            data: [{
+                type: "line",
+                dataPoints : dataPoints,
+            }]
+        });
+        chart.render();
+        updateChart();
     });
-      var dps = []; // dataPoints
-      var chart = new CanvasJS.Chart("chartContainer",
-      {
-        zoomEnabled: true,
-        title:{
-          text: "Live Volume Chart"
-        },
-        data: [{
-            type: "line",
-            markerType: "none",
-            dataPoints: dps
-      }]  // random generator below
-     });
-     var xVal = 0;
-     var yVal = 100;
-     var updateInterval = 300;
-     var dataLength = 100; // number of dataPoints visible at any point
-
-     var updateChart = function (count) {
-       count = count || 1;
-       // count is number of times loop runs to generate random dataPoints.
-
-       for (var j = 0; j < count; j++) {
-         yVal = yVal +  Math.round(5 + Math.random() *(-5-5));
-         dps.push({
-           x: xVal,
-           y: yVal
-         });
-         xVal++;
-       };
-
-       chart.render();
-     };
-
-     // generates first set of dataPoints
-     updateChart(dataLength);
-
-     // update chart after specified time.
-     setInterval(function(){updateChart()}, updateInterval);
+    function updateChart() {
+        $.getJSON("http://localhost/Hackathon/backend/soundData.json", function(data) {
+            $.each(data, function(key, value) {
+                dataPoints.push({
+                    x: data.x,
+                    y: data.y
+                });
+            });
+            chart.render();
+            setTimeout(function(){updateChart()}, 1000);
+        });
+    }
 });

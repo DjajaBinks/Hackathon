@@ -4,40 +4,41 @@ import RPi.GPIO as GPIO
 import time
 import json
 
-# sound_pin wird definiert
 sound_pin = 18
-# GPIO mode wird auf GPIO.BOARD gesetzt
+
 GPIO.setmode(GPIO.BOARD)
-# sound_pin wird als Eingang festgelegt
 GPIO.setup(sound_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
 try:
+
+    counter = 0
+    refresh_ratio = 1
+
     while True:
-        # ueberpruefe ob ein Geraeusch erkannt wird
+        counter += 1
+
         if (GPIO.input(sound_pin) == GPIO.LOW):
             data = {
-                "sound": {
-                    "volume": 1
-                }
+                    "x": counter,
+                    "y": 1,
             }
             with open("soundData.json", "w") as write_file:
                 json.dump(data, write_file)
-            time.sleep(0.5)
+            time.sleep(refresh_ratio)
         if (GPIO.input(sound_pin) == GPIO.HIGH):
             data = {
-                "sound": {
-                    "volume": 1
-                }
+                    "x": counter,
+                    "y": 2,
             }
             with open("soundData.json", "w") as write_file:
                 json.dump(data, write_file)
-            time.sleep(0.5)
+            time.sleep(refresh_ratio)
         else:
             data = {
-                "sound": {
-                    "volume": 1
-                }
+                    "x": counter,
+                    "y": 0,
             }
-        time.sleep(0.5)
+        time.sleep(refresh_ratio)
         with open("soundData.json", "w") as write_file:
             json.dump(data, write_file)
 except KeyboardInterrupt:
