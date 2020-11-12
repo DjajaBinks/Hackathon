@@ -13,6 +13,7 @@ try:
 
     counter = 0
     refresh_ratio = 1
+    startTime = time.time()
 
     while True:
         counter += 1
@@ -24,7 +25,8 @@ try:
             }
             with open("soundData.json", "w") as write_file:
                 json.dump(data, write_file)
-            time.sleep(refresh_ratio)
+            time.sleep(refresh_ratio - ((time.time() - startTime) % refresh_ratio))
+            continue
         if (GPIO.input(sound_pin) == GPIO.HIGH):
             data = {
                     "x": counter,
@@ -32,14 +34,16 @@ try:
             }
             with open("soundData.json", "w") as write_file:
                 json.dump(data, write_file)
-            time.sleep(refresh_ratio)
+            time.sleep(refresh_ratio - ((time.time() - startTime) % refresh_ratio))
+            continue
         else:
             data = {
                     "x": counter,
                     "y": 0,
             }
-        time.sleep(refresh_ratio)
-        with open("soundData.json", "w") as write_file:
-            json.dump(data, write_file)
+            with open("soundData.json", "w") as write_file:
+                json.dump(data, write_file)
+            time.sleep(refresh_ratio - ((time.time() - startTime) % refresh_ratio))
+            continue
 except KeyboardInterrupt:
     GPIO.cleanup()
